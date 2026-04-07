@@ -1,27 +1,23 @@
 def show_inventory(inventory):
     print("\nCurrent Inventory:")
-    # ¿Es esta la forma correcta de iterar sobre el diccionario?
-    for fruit, stock in inventory:
+    for fruit, stock in inventory.items():  # ✅ FIX 1
         print(f"{fruit}: {stock}")
     print()
 
 def add_fruit(inventory):
     fruit = input("Enter the name of the new fruit: ").strip()
-    if fruit in inventory.keys():
+    if fruit in inventory:  # ✅ FIX 2
         print(f"{fruit} already exists!\n")
     else:
         stock = input(f"Enter stock for {fruit}: ")
-        # Algo está mal con la sintaxis aquí...
-        inventory[fruit] == int(stock)
+        inventory[fruit] = int(stock)  # ✅ FIX 3
         print(f"{fruit} added with stock {stock}.\n")
 
 def update_stock(inventory):
     fruit = input("Enter the name of the fruit to update: ").strip()
-    # ¿Es esta la forma correcta de iterar sobre el diccionario?
-    if fruit in inventory.items():
-        amount = input(f"Enter amount to add to {fruit}'s stock: ")
-        # ¿Es esta operación válida?
-        inventory[fruit] += amount
+    if fruit in inventory:  # ✅ FIX 4
+        amount = int(input(f"Enter amount to add to {fruit}'s stock: "))
+        inventory[fruit] += amount  # ✅ FIX 5
         print(f"{fruit} stock increased by {amount}.\n")
     else:
         print(f"{fruit} is not in inventory. Use option 2 to add it.\n")
@@ -34,15 +30,13 @@ def menu():
     print("4 - Exit")
 
 def run_program():
-    # Puede haber un error de sintaxis aquí...
     inventory = {
-        "apples": 10
-        "bananas": 20
+        "apples": 10,
+        "bananas": 20,
         "oranges": 15
-    }
+    }  # ✅ FIX 6 (comas)
 
-    # FREEZE CODE BEGIN
-    print("Welcome to the Fruit Shop!\n")
+    print("Welcome to the Fruit Shop!")
 
     while True:
         menu()
@@ -58,8 +52,4 @@ def run_program():
             print("Goodbye!")
             break
         else:
-            print("Invalid option. Please choose 1, 2, 3, or 4.\n")
-  
-if __name__ == "__main__":
-    run_program()
-    # FREEZE CODE END
+            print("Invalid option!\n")
